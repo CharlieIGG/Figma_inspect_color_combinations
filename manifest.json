@@ -1,0 +1,10 @@
+{
+  "name": "Check Surface & Text Combinations",
+  "id": "1143207705286141988",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "editorType": [
+    "figma"
+  ],
+  "ui": "dist/ui.html"
+}
