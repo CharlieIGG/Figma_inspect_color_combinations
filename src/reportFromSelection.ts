@@ -1,13 +1,27 @@
+interface Report {
+    [key: string]: Object[]
+}
+
 export function reportFromSelection() {
+    const report: Report = {} 
+    
     figma.skipInvisibleInstanceChildren = true;
 
     for (let textNode of figma.currentPage.findAllWithCriteria({
         types: ["TEXT", "VECTOR", "BOOLEAN_OPERATION"]
     })) {
         let result = processTextNode(textNode)
-        console.log(result);
+        if(!result) continue;
+
+        console.log("RESULT!");
         
+        if (report[result!.backgroundColor]){
+            report[result!.backgroundColor].push(result)
+        } else { 
+            report[result!.backgroundColor] = [result] 
+        }
     }
+    console.log(report)
 }
 
 type ReviewableNode = SceneNode & {
@@ -28,7 +42,7 @@ const processTextNode = (textNode: ReviewableNode) => {
         rootId: textNode.id,
         name: textNode.name,
         textColor: textColor,
-        backgroundColor: backgroundColor
+        backgroundColor: backgroundColor!
     };
 }
 
